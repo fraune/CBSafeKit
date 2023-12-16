@@ -6,18 +6,25 @@ import PackageDescription
 let package = Package(
     name: "SwiftCBUUIDKit",
     products: [
-        // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "SwiftCBUUIDKit",
-            targets: ["SwiftCBUUIDKit"]),
+            targets: ["SwiftCBUUIDKit"]
+        ),
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
-            name: "SwiftCBUUIDKit"),
+            name: "CBUUIDHelper",
+            path: "Sources/CBUUIDHelper",
+            publicHeadersPath: "."
+        ),
+        .target(
+            name: "SwiftCBUUIDKit",
+            dependencies: ["CBUUIDHelper"],
+            path: "Sources/SwiftCBUUIDKit"
+        ),
         .testTarget(
             name: "SwiftCBUUIDKitTests",
-            dependencies: ["SwiftCBUUIDKit"]),
+            dependencies: ["SwiftCBUUIDKit"]
+        )
     ]
 )
