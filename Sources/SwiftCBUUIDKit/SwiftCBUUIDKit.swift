@@ -1,7 +1,7 @@
 import CoreBluetooth
 import CBUUIDHelper
 
-extension String {
+public extension String {
     var asCBUUID: CBUUID? {
         CBUUIDHelper.cbuuid(from: self)
     }
