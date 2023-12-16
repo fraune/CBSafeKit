@@ -13,6 +13,8 @@ final class SwiftCBUUIDKitTests: XCTestCase {
             ("ABC", nil),
             // valid
             ("ABCD", CBUUID(string: "ABCD")),
+            ("abcd", CBUUID(string: "ABCD")),
+            ("abcd", CBUUID(string: "abcd")),
             // not hex
             ("ZBCD", nil),
             // invalid size
