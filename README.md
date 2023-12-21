@@ -21,13 +21,29 @@ Example of using this package to safely create a CBUUID:
 import CoreBluetooth
 import CBSafeKit
 
-func createMutableService(_ fromUUIDString: String) throws -> CBMutableService {
-    guard let cbuuid = fromUUIDString.asCBUUID else {
-        throw NSError()
+func doSomething() {
+    let input = "Meow"
+    guard let cbuuid = SafeCBUUID(string: input) else {
+        print("Caught error creating CBUUID")
+        return
     }
-    return CBMutableService(type: cbuuid, primary: true)
+    print("Safe to proceed")
 }
 ```
+
+## Interfaces
+
+### SafeCBUUID(string: String)
+
+* Safe alternative to `CBUUID(string: String)`
+* Returns `CBUUID?`
+* Does not throw
+
+### SafeCBMutableService(type: CBUUID, primary: Bool)
+
+* Safe alternative to `CBMutableService(type: CBUUID, primary: Bool)`
+* Returns `CBMutableService?`
+* Does not throw
 
 ## Documented Dangers
 
