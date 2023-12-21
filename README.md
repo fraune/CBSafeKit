@@ -15,8 +15,8 @@ This package solves that problem, by using Objective-C to bridge dangerous insta
 https://github.com/fraune/CBSafeKit
 ```
 
-### 2. Import the package and instantiate a CBUUID
-Example of using this package to safely create a CBUUID
+### 2. Import the package and use one of the helpers
+Example of using this package to safely create a CBUUID:
 ```swift
 import CoreBluetooth
 import CBSafeKit
