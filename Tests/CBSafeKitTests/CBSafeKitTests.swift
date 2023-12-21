@@ -3,7 +3,7 @@ import CoreBluetooth
 @testable import CBSafeKit
 
 final class CBSafeKitTests: XCTestCase {
-    func test() {
+    func test_SafeCBUUID() {
         /// ( Input String, Expected Result )
         [
             // too short
@@ -34,9 +34,9 @@ final class CBSafeKitTests: XCTestCase {
             // no dashes
             ("123456789ABCDEF0123456789ABCDEF0", nil),
             // too long
-            ("12345678-9ABC-DEF0-1234-56789ABCDEF01", nil),
+            ("12345678-9ABC-DEF0-1234-56789ABCDEF01", nil)
         ].forEach { (input: String, expected: CBUUID?) in
-            let actual = input.asCBUUID
+            let actual = SafeCBUUID(string: input)
             if expected == nil {
                 XCTAssertNil(actual)
             } else {
@@ -44,19 +44,20 @@ final class CBSafeKitTests: XCTestCase {
             }
         }
     }
-    
-    func test_mutableService() {
-        if let uuid = "ABCD".asCBUUID {
-            let x = CBMutableService(type: uuid, primary: true)
-            print(x.uuid.uuidString)
-        }
-        if let uuid = "ABCD1234".asCBUUID {
-            let x = CBMutableService(type: uuid, primary: true)
-            print(x.uuid.uuidString)
-        }
-        if let uuid = "12345678-9ABC-DEF0-1234-56789ABCDEF0".asCBUUID {
-            let x = CBMutableService(type: uuid, primary: true)
-            print(x.uuid.uuidString)
+
+    func test_SafeCBMutableService() {
+        [
+            ("AAAA", CBMutableService(type: CBUUID(string: "AAAA"), primary: true)),
+            ("AAAABBCC", nil),
+            ("12345678-9ABC-DEF0-1234-56789ABCDEF0", CBMutableService(type: CBUUID(string: "12345678-9ABC-DEF0-1234-56789ABCDEF0"), primary: true))
+        ].forEach { (input: String, expected: CBMutableService?) in
+            let actual = SafeCBMutableService(type: CBUUID(string: input), primary: true)
+            if expected == nil {
+                XCTAssertNil(actual)
+            } else {
+                XCTAssertEqual(actual!.uuid, expected!.uuid)
+                XCTAssertEqual(actual!.isPrimary, expected!.isPrimary)
+            }
         }
     }
 }
