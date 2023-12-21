@@ -1,6 +1,6 @@
-#import "CBUUIDHelper.h"
+#import "CBHelper.h"
 
-@implementation CBUUIDHelper
+@implementation CBHelper
 
 + (CBUUID *)cbuuidFromString:(NSString *)string {
     @try {

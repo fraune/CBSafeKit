@@ -1,4 +1,4 @@
-# SwiftCBUUIDKit
+# CBSafeKit
 
 This project is a small helper package that helps Swift programmers safely instantiate a CoreBluetooth CBUUID.
 
@@ -32,3 +32,7 @@ func createMutableService(_ fromUUIDString: String) throws -> CBMutableService {
 ## Contributing
 
 This package is simple, but contributer-friendly. I don't have a template or style guide right now, so if you would like to contribute, reach out.
+
+## License
+
+https://github.com/fraune/swift-cbuuid-kit/blob/main/LICENSE
