@@ -64,5 +64,3 @@ If you can add to or refine any of the **Documented Dangers**, please open a PR 
 ## License
 
 https://github.com/fraune/swift-cbuuid-kit/blob/main/LICENSE
-
-9CD667AB-FD28-43BF-BBDF-70F168736BEB
