@@ -4,5 +4,6 @@
 @interface CBHelper : NSObject
 
 + (CBUUID *)cbuuidFromString:(NSString *)string;
++ (CBMutableService *)cbMutableServiceFromType:(CBUUID *)type primary:(BOOL)primary;
 
 @end

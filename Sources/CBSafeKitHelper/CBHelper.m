@@ -11,4 +11,13 @@
     }
 }
 
++ (CBMutableService *)cbMutableServiceFromType:(CBUUID *)type primary:(BOOL)primary {
+    @try {
+        return [[CBMutableService alloc] initWithType:type primary:primary];
+    }
+    @catch (NSException *exception) {
+        return nil;
+    }
+}
+
 @end
