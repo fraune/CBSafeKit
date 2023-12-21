@@ -1,8 +1,8 @@
 import XCTest
 import CoreBluetooth
-@testable import SwiftCBUUIDKit
+@testable import CBSafeKit
 
-final class SwiftCBUUIDKitTests: XCTestCase {
+final class CBSafeKitTests: XCTestCase {
     func test() {
         /// ( Input String, Expected Result )
         [
@@ -42,6 +42,21 @@ final class SwiftCBUUIDKitTests: XCTestCase {
             } else {
                 XCTAssertEqual(actual, expected)
             }
+        }
+    }
+    
+    func test_mutableService() {
+        if let uuid = "ABCD".asCBUUID {
+            let x = CBMutableService(type: uuid, primary: true)
+            print(x.uuid.uuidString)
+        }
+        if let uuid = "ABCD1234".asCBUUID {
+            let x = CBMutableService(type: uuid, primary: true)
+            print(x.uuid.uuidString)
+        }
+        if let uuid = "12345678-9ABC-DEF0-1234-56789ABCDEF0".asCBUUID {
+            let x = CBMutableService(type: uuid, primary: true)
+            print(x.uuid.uuidString)
         }
     }
 }

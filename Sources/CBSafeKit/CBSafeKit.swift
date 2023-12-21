@@ -1,8 +1,8 @@
 import CoreBluetooth
-import CBUUIDHelper
+import CBSafeKitHelper
 
 public extension String {
     var asCBUUID: CBUUID? {
-        CBUUIDHelper.cbuuid(from: self)
+        CBHelper.cbuuid(from: self)
     }
 }
