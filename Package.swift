@@ -10,7 +10,7 @@ let package = Package(
         .library(
             name: "CBSafeKit",
             targets: ["CBSafeKit"]
-        ),
+        )
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -28,6 +28,6 @@ let package = Package(
         .testTarget(
             name: "CBSafeKitTests",
             dependencies: ["CBSafeKit"]
-        ),
+        )
     ]
 )
