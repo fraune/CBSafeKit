@@ -2,20 +2,19 @@
 
 @implementation CBHelper
 
-+ (CBUUID *)cbuuidFromString:(NSString *)string {
++ (CBUUID *)UUIDWithString:(NSString *)theString; {
     @try {
-        return [CBUUID UUIDWithString:string];
-    }
-    @catch (NSException *exception) {
+        return [CBUUID UUIDWithString:theString];
+    } @catch (NSException *exception) {
         return nil;
     }
 }
 
-+ (CBMutableService *)cbMutableServiceFromType:(CBUUID *)type primary:(BOOL)primary {
++ (CBMutableService *)cbMutableServiceFromType:(CBUUID *)UUID
+                                       primary:(BOOL)isPrimary {
     @try {
-        return [[CBMutableService alloc] initWithType:type primary:primary];
-    }
-    @catch (NSException *exception) {
+        return [[CBMutableService alloc] initWithType:UUID primary:isPrimary];
+    } @catch (NSException *exception) {
         return nil;
     }
 }
