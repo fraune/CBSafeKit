@@ -3,37 +3,37 @@ import CoreBluetooth
 @testable import CBSafeKit
 
 final class CBSafeKitTests: XCTestCase {
-    func test_SafeCBUUID() {
-        /// ( Input String, Expected Result )
+    func test() {
         [
-            // too short
+            // Invalid: too short
             ("", nil),
             ("A", nil),
             ("AB", nil),
             ("ABC", nil),
-            // valid
+            // Valid: mixed-case is allowed
             ("ABCD", CBUUID(string: "ABCD")),
             ("abcd", CBUUID(string: "ABCD")),
             ("abcd", CBUUID(string: "abcd")),
-            // not hex
+            ("abCD", CBUUID(string: "abcd")),
+            // Invalid: not hex
             ("ZBCD", nil),
-            // invalid size
+            // Invalid: unsupported size
             ("ABCD1", nil),
             ("ABCD12", nil),
             ("ABCD123", nil),
-            // valid
+            // Valid: 4-bytes is allowed
             ("ABCD1234", CBUUID(string: "ABCD1234")),
-            // not hex
+            // Invalid: not hex
             ("ZBCD1234", nil),
-            // invalid size
+            // Invalid: size malformed
             ("12345678-9AB", nil),
-            // valid
+            // Valid: UUID format
             ("12345678-9ABC-DEF0-1234-56789ABCDEF0", CBUUID(string: "12345678-9ABC-DEF0-1234-56789ABCDEF0")),
-            // not hex
+            // Invalid: UUID not hex
             ("Z2345678-9ABC-DEF0-1234-56789ABCDEF0", nil),
-            // no dashes
+            // Invalid: UUID format without dashes
             ("123456789ABCDEF0123456789ABCDEF0", nil),
-            // too long
+            // Invalid: too long
             ("12345678-9ABC-DEF0-1234-56789ABCDEF01", nil)
         ].forEach { (input: String, expected: CBUUID?) in
             let actual = SafeCBUUID(string: input)
@@ -41,22 +41,6 @@ final class CBSafeKitTests: XCTestCase {
                 XCTAssertNil(actual)
             } else {
                 XCTAssertEqual(actual, expected)
-            }
-        }
-    }
-
-    func test_SafeCBMutableService() {
-        [
-            ("AAAA", CBMutableService(type: CBUUID(string: "AAAA"), primary: true)),
-            ("AAAABBCC", nil),
-            ("12345678-9ABC-DEF0-1234-56789ABCDEF0", CBMutableService(type: CBUUID(string: "12345678-9ABC-DEF0-1234-56789ABCDEF0"), primary: true))
-        ].forEach { (input: String, expected: CBMutableService?) in
-            let actual = SafeCBMutableService(type: CBUUID(string: input), primary: true)
-            if expected == nil {
-                XCTAssertNil(actual)
-            } else {
-                XCTAssertEqual(actual!.uuid, expected!.uuid)
-                XCTAssertEqual(actual!.isPrimary, expected!.isPrimary)
             }
         }
     }

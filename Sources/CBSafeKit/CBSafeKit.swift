@@ -2,9 +2,9 @@ import CoreBluetooth
 import CBSafeKitHelper
 
 public func SafeCBUUID(string theString: String) -> CBUUID? {
-    CBHelper.cbuuid(from: theString)
+    CBHelper.uuid(with: theString)
 }
 
-public func SafeCBMutableService(type: CBUUID, primary: Bool) -> CBMutableService? {
-    CBHelper.cbMutableService(fromType: type, primary: primary)
+public func SafeCBMutableService(type UUID: CBUUID, primary isPrimary: Bool) -> CBMutableService? {
+    CBHelper.cbMutableService(fromType: UUID, primary: isPrimary)
 }

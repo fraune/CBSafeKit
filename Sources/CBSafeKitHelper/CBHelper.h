@@ -3,7 +3,9 @@
 
 @interface CBHelper : NSObject
 
-+ (CBUUID *)cbuuidFromString:(NSString *)string;
-+ (CBMutableService *)cbMutableServiceFromType:(CBUUID *)type primary:(BOOL)primary;
++ (CBUUID *)UUIDWithString:(NSString *)theString;
+
++ (CBMutableService *)cbMutableServiceFromType:(CBUUID *)UUID
+                                       primary:(BOOL)isPrimary;
 
 @end
