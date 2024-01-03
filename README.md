@@ -1,22 +1,42 @@
 # CBSafeKit
 
+[![Version](https://img.shields.io/badge/version-1.1.0-blue)](https://github.com/fraune/CBSafeKit/releases/tag/v1.1.0)
+[![License](https://img.shields.io/badge/license-MIT-blue)](https://github.com/fraune/swift-cbuuid-kit/blob/main/LICENSE)
+
 CBSafeKit is a lightweight helper package, to help Swift programmers safely instantiate various CoreBluetooth objects.
 
-## The problem
+## Contents
+1. [Contents](#contents)
+1. [Introduction](#introduction)
+1. [Getting Started](#getting-started)
+1. [Usage](#usage)
+1. [API Reference](#api-reference)
+1. [CoreBluetooth Undocumentation](#corebluetooth-undocumentation)
+1. [Contributing](#contributing)
+1. [License](#license)
+
+## Introduction
 
 Instantiating some CoreBluetooth objects can cause your program to raise `NSInternalInconsistencyException`s, which cannot be handled in a Swift do-catch. Unfortunately, there is very limited documentation for what is/isn't valid input for these types. As such, you might be tempted to write a lot of code, attempting to validate inputs that _might_ be valid.
 
 This package solves that problem, by using Objective-C to bridge dangerous instantiations into safe Swift interfaces. Using this library, you are free to attempt all the invalid instantiations you like, and can easily handle the results in a "Swift" way.
 
-## How to use
+## Getting Started
 
-### 1. Add this repository as a SPM project/package dependency in Xcode:
+### Swift Package Manager (SPM)
+
+Add this repository as a SPM project/package dependency in Xcode:
+
 ```
 https://github.com/fraune/CBSafeKit
 ```
 
-### 2. Import the package and use one of the helpers
-Example of using this package to safely create a CBUUID:
+## Usage
+
+After importing the package, you can use [one of the helpers](#api-reference) to safely create an optional. Use guard-let or if-let to safely unwrap the optional.
+
+### Example usage of getting a concrete CBUUID safely:
+
 ```swift
 import CoreBluetooth
 import CBSafeKit
@@ -24,7 +44,7 @@ import CBSafeKit
 func doSomething() {
     let input = "Invalid"
 
-    guard let cbuuid = SafeCBUUID(string: input) else {
+    guard let cbuuid: CBUUID = SafeCBUUID(string: input) else {
         print("Unable to create CBUUID with: \(input)")
         return
     }
@@ -34,7 +54,7 @@ func doSomething() {
 }
 ```
 
-## Interfaces
+## API Reference
 
 ### SafeCBUUID(string: String)
 
@@ -48,7 +68,9 @@ func doSomething() {
 * Returns `CBMutableService?`
 * Does not throw
 
-## Documented Dangers
+## CoreBluetooth Undocumentation
+
+_"undocumentation" = important notes not officially documented by Apple_
 
 ### [CBUUID.init(string:)](https://developer.apple.com/documentation/corebluetooth/cbuuid/1519025-init)
 
@@ -67,11 +89,9 @@ The following inputs will cause this method to throw an `NSInternalInconsistency
     * Specifically, a valid CBUUID with a byte-length of 4 (8 hex characters) will cause this constructor to throw the error
         * e.g. `CBUUID(string: "ABCD1234")`
 
-## Interesting Notes
-
 ### [CBMutableCharacteristic.init(type:properties:value:permissions:)](https://developer.apple.com/documentation/corebluetooth/cbmutablecharacteristic/1519073-init)
 
-You might notice this package provides a safe constructor for `CBMutableService`, but not for `CBMutableCharacteristic`. Interestingly, this is not necessary: while a valid CBUUID with a byte-length of 4 (8 hex characters) is an invalid parameter for `CBMutableService`, it _is_ a valid parameter for `CBMutableCharacteristic`!
+You might notice this package provides a safe constructor for `CBMutableService`, but not for `CBMutableCharacteristic`. Interestingly, this is not necessary: while a valid CBUUID with a byte-length of 4 (8 hex characters) is not a valid parameter for `CBMutableService`, it _is_ a valid parameter for `CBMutableCharacteristic`!
 
 ## Contributing
 
@@ -83,7 +103,7 @@ Keep the scope of this package limited to CoreBluetooth "safety" helpers.
 
 ### Documentation
 
-If you can add to or refine any of the **Documented Dangers** or **Interesting Notes**, please open a PR with a documentation update and unit test.
+If you can add to or refine any of the documentation, please open a PR with an update and unit test.
 
 ## License
 
